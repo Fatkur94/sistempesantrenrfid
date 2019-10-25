@@ -1,0 +1,295 @@
+{% extends "dashboard/blank.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12">
+
+    <div class="card shadow border-primary">
+        <div class="card-header border-primary py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5 class="card-title m-0 font-weight-bold text-primary">Informasi Santri</h5>
+          <div class="dropdown no-arrow">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Informasi Santri:</div>
+                <a href="{% url 'santri-update' santri.pk %}" class="dropdown-item">Update santri</a>
+                <div class="dropdown-divider"></div>
+                <a href="" class="dropdown-item" data-toggle="modal" data-target="#exampleModal">
+                    Delete santri
+                </a>
+              </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+          <div class="container bootstrap snippet">
+              <div class="row">
+                <div class="col-md-3"><!--left col-->            
+        
+                  <div class="text-center">
+                    <img src="{{ santri.image.url }}" class="avatar img-circle img-thumbnail" alt="avatar">
+                    {% if santri.anggotakeluarga_set.first %}
+                        <button href="#" class="btn btn-success btn-circle btn-lg">
+                          <i class="fas fa-check"></i>
+                        </button>
+                    {% else %}
+                        <button href="#" class="btn btn-warning btn-circle btn-lg">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </button>
+                    {% endif %}
+                  </div></hr><br>
+                  
+                  <ul class="list-group pb-4">
+                      <li class="list-group-item text-center">
+                        <a href="{% url 'keluar-create' santri.pk %}" class="btn btn-info btn-icon-split">
+                          <span class="icon text-white-50"><i class="fas fa-sign-out-alt"></i></span>
+                          <span class="text">Keluar</span>
+                        </a>
+                      </li>
+                      <li class="list-group-item text-center">
+                        <a href="{% url 'pulang-create' santri.pk %}" class="btn btn-info btn-icon-split">
+                          <span class="icon text-white-50"><i class="fas fa-home"></i></span>
+                          <span class="text">Pulang</span>
+                        </a>
+                      </li>
+                      <li class="list-group-item text-center">
+                        <a href="{% url 'sambang-create' santri.pk %}" class="btn btn-info btn-icon-split">
+                          <span class="icon text-white-50"><i class="fas fa-home"></i></span>
+                          <span class="text">Sambang</span>
+                        </a>
+                      </li>
+                    </ul>
+
+                  <ul class="list-group">
+                    <li class="list-group-item text-muted">Aktivitas Santri <i class="fa fa-dashboard fa-1x"></i></li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Keluar</strong></span> {{ santri.keluar_set.count }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Sambang</strong></span> {{ santri.sambang_set.count }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Pulang</strong></span>  {{ santri.pulang_set.count }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+                  </ul> 
+
+
+
+                </div><!--/col-3-->
+                <div class="col-md-9">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <hr>
+                        <div class="container">
+
+                          <div class="form" action="##" method="post" id="registrationForm">
+                            <div class="form-row">
+                              
+                              <div class="form-group col-md-6">
+                                      <label for="first_name">Nama Lengkap</label>
+                                      <input type="text" class="form-control" name="nama" id="first_name" placeholder=" {{ santri.nama }}" title="update nama lengkap." disabled>
+                              </div>
+                              <div class="form-group col-md-6">
+                                    <label for="last_name">Jenis Kelamin</label>
+                                    <input type="text" class="form-control" name="Gender" id="last_name" placeholder="{{ santri.get_gender_display }}" title="update jenis kelamin." disabled>
+                              </div>
+
+                              <div class="form-group col-md-3">
+                                <label for="first_name">Tempat Lahir</label>
+                                <input type="text" class="form-control" name="kota" id="first_name" placeholder="{{ santri.tempat_lahir }}" title="update kota." disabled>
+                              </div>
+                              <div class="form-group col-md-3">
+                                  <label for="first_name">Tanggal Lahir</label>
+                                  <input type="text" class="form-control" name="kota" id="first_name" placeholder="{{ santri.tanggal_lahir }}" title="update kota." disabled>
+                                </div>
+
+                              <div class="form-group col-md-6">
+                                    <label for="first_name">Kota</label>
+                                    <input type="text" class="form-control" name="kota" id="first_name" placeholder="{{ santri.kota }}" title="update kota." disabled>
+                              </div>
+                          
+                              <div class="form-group col-md-6">
+                                  <label for="last_name">Agama</label>
+                                  <input type="text" class="form-control" name="agama" id="last_name" placeholder="{{ santri.agama }}" title="update agama." disabled>
+                              </div>
+                              <div class="form-group col-md-2">
+                                  <label for="last_name">Anak Ke</label>
+                                  <input type="text" class="form-control" name="no_induk" id="last_name" placeholder="{{ santri.anak_ke }}" title="update anak ke." disabled>
+                              </div>
+                              <div class="form-group col-md-4">
+                                  <label for="last_name">Dari</label>
+                                  <input type="text" class="form-control" name="no_induk" id="last_name" placeholder="{{ santri.dari }}" title="update nomor induk." disabled>
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="last_name">No. Induk</label>
+                                  <input type="text" class="form-control" name="no_induk" id="last_name" placeholder="{{ santri.no_induk }}" title="update nomor induk." disabled>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="first_name">No. Ktp</label>
+                                <input type="text" class="form-control" name="no_nik" id="first_name" placeholder="{{ santri.no_nik }}" title="update nomor kk." disabled>
+                              </div>
+                              <div class="form-group col-md-6">
+                                    <label for="first_name">No. KK</label>
+                                    <input type="text" class="form-control" name="no_kk" id="first_name" placeholder="{{ santri.no_kk }}" title="update nomor kk." disabled>
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="first_name">No. Telp</label>
+                                  <input type="text" class="form-control" name="no_telp" id="first_name" placeholder="{% if santri.no_telp %}{{ santri.no_telp }}{% else %}-{% endif %}" title="update nomor kk." disabled>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                  <label for="last_name">Pendidikan Terakhir</label>
+                                  <input type="text" class="form-control" name="pendidikan_terakhir" id="last_name" placeholder="{{ santri.pendidikan_terakhir }}" title="update pendidikan terakhir." disabled>
+                              </div>
+                              <div class="form-group col-md-6">
+                                    <label for="first_name">Tanggal Masuk</label>
+                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="{{ santri.tanggal_masuk }}" title="update tanggal masuk." disabled>
+                              </div>
+                            
+                            </div>
+                          </form>
+                            </div>
+                          </div>
+                        
+                      <br>
+                      
+                      </div><!--/tab-pane-->
+                        
+                  </div><!--/tab-pane-->
+                <hr>
+                  <div class="row">
+                    {% if santri.anggotakeluarga_set.first %}
+                    <div class="col text-center mb-4">
+
+                      <h4 class="col text-center">Anggota Keluarga</h4>
+                      <div class="col text-center">
+                        <a href="{% url 'anggotakeluarga-create' santri.pk %}" class="btn btn-success btn-icon-split">
+                          <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                          <span class="text">Tambah</span>
+                        </a>
+                      </div>
+                    </div>
+
+                      {% for anggota in santri.anggotakeluarga_set.all %}
+                        <div class="col-md-12 mb-4">
+                          <div class="card border-left-primary shadow h-100 py-2">
+                              <div class="row card-body">
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <img src="{{ santri.image.url }}" class="avatar img-circle img-thumbnail" alt="avatar">   
+                                      </div></hr><br>
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="row no-gutters align-items-center">
+                                      <div class="col-md-6">Nama</div>
+                                      <div class="col-md-6">{{ anggota.nama }}</div>
+                                      <hr>
+                                      <div class="col-md-6">Status</div>
+                                      <div class="col-md-6">{{ anggota.status }}</div>
+                                      <hr>
+                                      <div class="col-md-6">Nomor Nik</div>
+                                      <div class="col-md-6">{{ anggota.no_nik }}</div>
+                                      <hr>
+                                      <div class="col-md-6">Nomor KK</div>
+                                      <div class="col-md-6">{{ anggota.no_kk }}</div>
+                                      <hr>
+                                      <div class="col-md-6">Agama</div>
+                                      <div class="col-md-6">{{ anggota.agama }}</div>
+                                      <hr>
+                                      <div class="col-md-6">Kota</div>
+                                      <div class="col-md-6">{{ anggota.kota }}</div>
+                                      <hr>
+                                      <div class="col-md-6">Nomor Telepon</div>
+                                      <div class="col-md-6">
+                                        {% if anggota.no_telp %}
+                                          {{ anggota.no_telp }}
+                                        {% else %}
+                                          Tidak ada
+                                        {% endif %}
+                                      </div>
+                                  </div>
+                                  <div class="float-right">
+                                    <form class="delForm" method="POST" action="{% url 'anggotakeluarga-delete' santri.pk anggota.pk %}">
+                                      {% csrf_token %}
+                                      <button type="submit" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+                                      </button>
+                                    </form>
+                                  </div>
+                                  <div class="float-right">
+                                    <a href="{% url 'anggotakeluarga-update' santri.pk anggota.pk %}" class="btn btn-warning btn-icon-split">
+                                      <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
+                                    </a>
+                                  </div>
+
+                                    <!-- Modal Edit -->
+                                    <div class="modal fade" id="hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">Hapus {{ anggota.nama }}</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <h5>Apakah anda yakin akan menghapus data {{ anggota.anggota_keluarga_id }} ?</h5>
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tidak</button>
+                                                  <form class="delForm" method="POST" action="{% url 'anggotakeluarga-delete' santri.pk anggota.pk %}">
+                                                    {% csrf_token %}
+                                                      <button type="submit" class="btn btn-outline-danger">Iya Hapus</button>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+
+
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                        <div class="col text-center">
+
+                          <h1> Tidak ada Keluarga </h1>
+                              <a href="{% url 'anggotakeluarga-create' santri.pk %}" class="btn btn-success btn-icon-split">
+                                <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                <span class="text">Tambah</span>
+                              </a>
+                            
+                        </div>
+                    {% endif  %}
+                  </div>
+                </div><!--/tab-content-->
+              </div>
+          </div> 
+        </div>
+    </div>    
+  </div>
+</div>    
+    
+    <!-- Modal Delete-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus {{ santri.nama }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Apakah anda yakin akan menghapus data {{ santri.nama }} ?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tidak</button>
+                    <form method="POST" action="{% url 'santri-delete' pk=santri.pk %}">{% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Iya Hapus</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    {% endblock %}

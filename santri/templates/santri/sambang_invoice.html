@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{% static 'sb-admin/vendor/fontawesome-free/css/all.min.css' %} " rel="stylesheet" type="text/css">
+    <link href="{% static 'sb-admin/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'santri/main.css' %}" type="text/css">
+    <!------ Include the above in your HEAD tag ---------->
+
+    <title>INVOICE - SAMBANG</title>
+</head>
+<body>
+
+<!--Author      : @arboshiki-->
+<div id="invoice">
+
+        <div class="invoice overflow-auto">
+            <div style="min-width: 600px">
+                <header>
+                    <div class="row">
+                        <div class="col">
+                            <a target="_blank" href="">
+                                <img src="" data-holder-rendered="true" />
+                                </a>
+                        </div>
+                        <div class="col company-details">
+                            <h2 class="name">
+                                <a target="_blank" href="https://lobianijs.com">
+                                PPRQ
+                                </a>
+                            </h2>
+                            <div>Jl Sakkarepmu dewe No.25 Sidoarjo, ID</div>
+                            <div>(123) 456-789</div>
+                            <div>pprq@sistemsafety.com</div>
+                        </div>
+                    </div>
+                </header>
+                <main>
+                    <div class="row contacts">
+                        <div class="col invoice-to">
+                            <div class="text-gray-light">INVOICE TO:</div>
+                            <h2 class="to">{{ obj.santri.nama }}</h2>
+                            <div class="address">{{ obj.santri.alamat}}, {{ obj.santri.kota }}</div>
+                            <div class="email"><a href="mailto:john@example.com">{{ obj.santri.no_induk }}</a></div>
+                        </div>
+                        <div class="col invoice-details">
+                            <h1 class="invoice-id">INVOICE 3-2-1</h1>
+                            <div class="date">Date of Invoice: {{ obj.end_time|date:"d/m/Y"}}</div>
+                            <div class="date">Nama Staff: {{ request.user.firstname }}</div>
+                        </div>
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th class="text-left">KEPERLUAN & KETERANGAN</th>
+                                <th class="text-right">PENJENGUK</th>
+                                <th class="text-right">WAKTU SAMBANG</th>
+                                <th class="text-right">SELESAI SAMBANG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="no">01</td>
+                                <td class="col text-left">
+                                    <h3>{{ obj.keperluan }}</h3>
+                                    {{ obj.keterangan }}
+                                              
+                                </td>
+                                <td class="unit">
+                                        {{ obj.penjenguk.nama }}
+                                        <span class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            ({{ obj.penjenguk.status }})
+                                        </span>
+                                </td>
+                                <td class="qty">{{ obj.start_time|date:"d/m/Y, H:i" }}</td>
+                                <td class="total">{{ obj.end_time|date:"d/m/Y, H:i" }}</td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td colspan="1">MASA DURASI</td>
+                                <td>{{ obj.get_masa_durasi_display }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td colspan="1">DEADLINE</td>
+                                <td>{{ obj.durasi_habis|date:"d/m/Y, H:i" }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td colspan="1" style="font-size: 1.5em;">SISA WAKTU</td>
+                                <td>3 JAM</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="thanks">Terima Kasih!</div>
+                    <div class="notices">
+                        <div>Pemberitahuan:</div>
+                        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+                    </div>
+                </main>
+                <footer>
+                    Invoice dibuat dari computer dan statusnya valid tanpa tanda tangan dan stempel.
+                </footer>
+            </div>
+            <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+            <div></div>
+        </div>
+    </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'sb-admin/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'sb-admin/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'sb-admin/js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>
+
+

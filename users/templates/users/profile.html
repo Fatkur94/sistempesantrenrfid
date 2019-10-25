@@ -1,0 +1,38 @@
+{% extends "dashboard/blank.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Basic Card Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Profile Admin</h6>
+    </div>
+    <div class="card-body">
+      <div class="row justify-content-md-center">
+      <div class="col-md-6">
+      
+        <div class="content-section">
+          <div class="text-center">
+            <img class="rounded-circle account-img text-center" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+              <h2 class="account-heading">{{ user.username }}</h2>
+              {{ user.email }}
+            </div>
+          </div>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Profile Info</legend>
+              {{ u_form|crispy }}
+              {{ p_form|crispy }}
+            </fieldset>
+              <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+  {% endblock content %}

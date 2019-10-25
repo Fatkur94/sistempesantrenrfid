@@ -1,0 +1,71 @@
+{% extends "dashboard/blank.html" %}
+{% block content %}
+
+{% if para_santri%}
+<div class="card shadow border-primary">
+    <div class="card-header border-primary">
+        <h3 class="card-title">Tabel List Santri
+        </h3>
+    </div>
+    <div class="card-body">
+        <div class="content-section">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr class="table-info">
+                  <th scope="col">Nama Santri</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Kota</th>
+                  <th scope="col">Pendidikan Terakhir</th>
+                  <th scope="col">No Induk</th>
+                  <th scope="col">Tanggal Daftar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for santri in para_santri %}
+                        <tr>
+                            <th scope='row'><a href="{% url 'santri-detail' santri.pk %}">{{ santri.nama }}</a></th>
+                            <td>{{ santri.get_gender_display }}</td>
+                            <td>{{ santri.kota }}</td>
+                            <td>{{ santri.pendidikan_terakhir }}</td>
+                            <td>
+                                {{ santri.no_induk }}
+                            </td>
+                            <td>
+                                {{ santri.tanggal_masuk }}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                      
+                  </div>
+          
+              {% if is_paginated %}
+          
+                {% if page_obj.has_previous %}
+                  <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+          
+                {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                  {% endif %}
+                {% endfor %}
+          
+                {% if page_obj.has_next %}
+                  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+          
+              {% endif %}
+    </div>
+</div>
+{% else %}
+<h5 class="text-center">Tidak Ada Santri, Silahkan tambah santri <a href="{% url 'santri-create' %}">disini</a></h5>
+{% endif%}
+
+
+{% endblock content %}
