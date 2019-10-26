@@ -73,7 +73,7 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            username = form.cleaned_data.get('username')
+            username = u_form.cleaned_data.get('username')
             messages.success(request, f' Akun anda sudah diupdate!')
             return redirect('profile')
 
