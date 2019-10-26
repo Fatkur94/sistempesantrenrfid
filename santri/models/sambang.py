@@ -8,6 +8,7 @@ from datetime import timedelta
 
 class Sambang(models.Model):
     staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    no_invoice = models.CharField(max_length=30, null=True, blank=True)
     santri = models.ForeignKey(Santri, on_delete=models.CASCADE, null=True, blank=True)
     penjenguk = models.ForeignKey(AnggotaKeluarga, on_delete=models.CASCADE, null=True, blank=True)
     status_penjenguk = models.CharField(max_length=15, null=True, blank=True)
@@ -15,7 +16,7 @@ class Sambang(models.Model):
     keterangan = models.TextField(max_length=999, null=True, blank=True)
     start_time = models.DateTimeField(auto_now_add=True)
     pilihan_status = (
-        ('Started', 'Masih berjalan'),
+        ('Started', 'Masih sambang'),
         ('Ended', 'Selesai')
     )
     status = models.CharField(max_length=20, choices=pilihan_status)
@@ -34,5 +35,5 @@ class Sambang(models.Model):
     masa_durasi = models.DurationField(null=True, blank=True, choices=pilihan_durasi)
     durasi_habis = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
-    sisa_waktu = models.DateTimeField(null=True, blank=True)
+    sisa_waktu = models.DurationField(null=True, blank=True)
 

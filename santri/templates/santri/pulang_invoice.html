@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'santri/main.css' %}" type="text/css">
     <!------ Include the above in your HEAD tag ---------->
 
-    <title>INVOICE - SAMBANG</title>
+    <title>INVOICE - PULANG</title>
 </head>
 <body>
 
@@ -45,13 +45,13 @@
                             <div class="text-gray-light">INVOICE TO:</div>
                             <h2 class="to">{{ obj.santri.nama }}</h2>
                             <div class="address">{{ obj.santri.alamat}}, {{ obj.santri.kota }}</div>
-                            <div class="email"><a href="">{{ obj.santri.no_induk }}</a></div>
+                            <div class="email"><a href=""">{{ obj.santri.no_induk }}</a></div>
                         </div>
                         <div class="col invoice-details">
                             <h5 class="invoice-id">{{ obj.no_invoice }}</h5>
                             <div class="date">Date of Invoice: {{ obj.end_time|date:"d/m/Y" }}</div>
                             <div class="date">Nama Staff: {{ obj.staff.first_name }} {{ obj.staff.last_name }}</div>
-                            <div class="date">Kepentingan: Sambang</div>
+                            <div class="date">Kepentingan: Pulang</div>
                         </div>
                     </div>
                     <table border="0" cellspacing="0" cellpadding="0">
@@ -59,9 +59,8 @@
                             <tr>
                                 <th>No</th>
                                 <th class="text-left">KEPERLUAN & KETERANGAN</th>
-                                <th class="text-right">PENJENGUK</th>
-                                <th class="text-right">WAKTU SAMBANG</th>
-                                <th class="text-right">SELESAI SAMBANG</th>
+                                <th class="text-right">WAKTU PULANG</th>
+                                <th class="text-right">SELESAI PULANG</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,12 +71,6 @@
                                     {{ obj.keterangan }}
                                               
                                 </td>
-                                <td class="unit">
-                                        {{ obj.penjenguk.nama }}
-                                        <span class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            ({{ obj.penjenguk.status }})
-                                        </span>
-                                </td>
                                 <td class="qty">{{ obj.start_time|date:"d/m/Y, H:i" }}</td>
                                 <td class="total">{{ obj.end_time|date:"d/m/Y, H:i" }}</td>
                             </tr>
@@ -85,17 +78,17 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="2"></td>
                                 <td colspan="1">MASA DURASI</td>
                                 <td>{{ obj.get_masa_durasi_display }}</td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="2"></td>
                                 <td colspan="1">DEADLINE</td>
                                 <td>{{ obj.durasi_habis|date:"d/m/Y, H:i" }}</td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="2"></td>
                                 <td colspan="1" style="font-size: 1.5em;">SISA WAKTU</td>
                                 <td>{{ obj.sisa_waktu }}</td>
                             </tr>

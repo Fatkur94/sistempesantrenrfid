@@ -35,13 +35,13 @@ urlpatterns = [
     path('keluarlist/', santri_views.KeluarListView.as_view(), name='keluar-list'),
     path('santri/<int:pk>/keluarcreate/', santri_views.KeluarCreateView.as_view(), name='keluar-create'),
     path('santri/<int:santri>/keluar/<int:keluar>/update/', santri_views.update_keluar, name='keluar-update'),
-    path('santri/<int:santri>/keluar/<int:keluar>/invoice/', santri_views.invoice, name='keluar-invoice'),
+    path('santri/<int:santri>/keluar/<int:keluar>/invoice/', santri_views.keluar_invoice, name='keluar-invoice'),
 
     #santri pulang
     path('pulanglist/', santri_views.PulangListView.as_view(), name='pulang-list'),
     path('santri/<int:pk>/pulangcreate/', santri_views.PulangCreateView.as_view(), name='pulang-create'),
     path('santri/<int:santri>/pulang/<int:pulang>/update/', santri_views.update_pulang, name='pulang-update'),
-    path('santri/<int:santri>/pulang/<int:pulang>/invoice/', santri_views.invoice, name='pulang-invoice'),
+    path('santri/<int:santri>/pulang/<int:pulang>/invoice/', santri_views.pulang_invoice, name='pulang-invoice'),
 
     # santri sambang
     path('sambanglist/', santri_views.SambangListView.as_view(), name='sambang-list'),

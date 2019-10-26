@@ -14,23 +14,26 @@
                                 {% csrf_token %}
                                 <legend class="border-bottom mb-4">Form Santri</legend>
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             {{ form.nama|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             {{ form.gender|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            {{ form.no_induk|as_crispy_field }}
+                                        <div class="form-group col-md-4">
+                                            {{ form.id_tag|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
+                                            {{ form.no_telp|as_crispy_field }}
+                                        </div>
+                                        <div class="form-group col-md-4">
                                                 {{ form.no_nik|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             {{ form.no_kk|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            {{ form.no_telp|as_crispy_field }}
+                                        <div class="form-group col-md-4">
+                                            {{ form.no_induk|as_crispy_field }}
                                         </div>
                                         <div class="form-group col-md-4">
                                             {{ form.tempat_lahir|as_crispy_field }}
@@ -38,7 +41,7 @@
                                         <div class="form-group col-md-4">
                                             {{ form.tanggal_lahir|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             {{ form.agama|as_crispy_field }}
                                         </div>
                                         <div class="form-group col-md-3">
@@ -47,7 +50,7 @@
                                         <div class="form-group col-md-3">
                                             {{ form.dari|as_crispy_field }}
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-3">
                                             {{ form.pendidikan_terakhir|as_crispy_field }}
                                         </div>
                                         <div class="form-group col-md-12">

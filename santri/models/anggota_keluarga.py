@@ -16,6 +16,7 @@ class AnggotaKeluarga(models.Model):
         ('Ayah', 'Ayah'), ('Ibu', 'Ibu'), ('Kakak', 'Kakak'), ('Adik', 'Adik')
     )
     status = models.CharField(max_length=10, choices=pilihan_status)
+    id_tag = models.CharField(max_length=30, null=True, blank=True)
     regex = RegexValidator(regex=r'^\d[0-9 -]{4,50}$', message="format berupa: '999999/ 999 999 / 999-999', min:5 digit,maks: 50 digit" )
     no_nik = models.CharField(validators=[regex], max_length=55)
     no_kk = models.CharField(validators=[regex], max_length=55)

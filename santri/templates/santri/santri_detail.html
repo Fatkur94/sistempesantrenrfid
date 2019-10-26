@@ -133,11 +133,16 @@
                                   <input type="text" class="form-control" name="no_telp" id="first_name" placeholder="{% if santri.no_telp %}{{ santri.no_telp }}{% else %}-{% endif %}" title="update nomor kk." disabled>
                               </div>
 
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-4">
+                                <label for="first_name">ID Tag RFID</label>
+                                <input type="text" class="form-control" name="no_telp" id="id_tag" placeholder="{% if santri.id_tag %}{{ santri.id_tag }}{% else %}-{% endif %}" title="update nomor kk." disabled>
+                            </div>
+
+                              <div class="form-group col-md-4">
                                   <label for="last_name">Pendidikan Terakhir</label>
                                   <input type="text" class="form-control" name="pendidikan_terakhir" id="last_name" placeholder="{{ santri.pendidikan_terakhir }}" title="update pendidikan terakhir." disabled>
                               </div>
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-4">
                                     <label for="first_name">Tanggal Masuk</label>
                                     <input type="text" class="form-control" name="first_name" id="first_name" placeholder="{{ santri.tanggal_masuk }}" title="update tanggal masuk." disabled>
                               </div>

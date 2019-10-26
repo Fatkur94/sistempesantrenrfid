@@ -7,7 +7,7 @@ class AnggotaKeluargaForm(forms.ModelForm):
     
     class Meta:
         model = AnggotaKeluarga
-        fields = ['nama', 'gender', 'status', 'no_nik', 'no_kk', 'agama', 'no_telp', 'alamat', 'provinsi', 'kota', 'kecamatan', 'image']
+        fields = ['nama', 'gender', 'id_tag', 'status', 'no_nik', 'no_kk', 'agama', 'no_telp', 'alamat', 'provinsi', 'kota', 'kecamatan', 'image']
         labels = {
             'no_telp': 'No Telepon',
         }

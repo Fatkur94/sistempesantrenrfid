@@ -16,7 +16,7 @@ from .models.keluar import Keluar
 from .models.pulang import Pulang
 from .models.sambang import Sambang
 from .forms import AnggotaKeluargaForm, KeluarForm
-from datetime import datetime
+from django.utils import timezone
 from django.urls import reverse_lazy
 
 # Santri
@@ -32,7 +32,7 @@ class SantriDetailView(LoginRequiredMixin, DetailView):
 class SantriCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Santri
     fields = [
-        'image', 'nama', 'gender', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
+        'image', 'nama', 'gender', 'id_tag', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
         'tanggal_lahir', 'agama', 'anak_ke', 'dari', 'no_telp', 'pendidikan_terakhir', 
         'provinsi', 'kota', 'kecamatan', 'alamat', 
     ]
@@ -41,7 +41,7 @@ class SantriCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class SantriUpdateView(LoginRequiredMixin ,UpdateView):
     model = Santri
     fields = [
-        'image', 'nama', 'gender', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
+        'image', 'nama', 'gender', 'id_tag', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
         'tanggal_lahir', 'agama', 'anak_ke', 'dari', 'no_telp', 'pendidikan_terakhir', 
         'provinsi', 'kota', 'kecamatan', 'alamat', 
     ]
@@ -56,7 +56,7 @@ class SantriDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 class AnggotaKeluargaCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = AnggotaKeluarga
     fields = [
-        'nama', 'gender', 'status', 'no_nik', 'no_kk', 'agama', 'no_telp', 'alamat',
+        'nama', 'gender', 'id_tag', 'status', 'no_nik', 'no_kk', 'agama', 'no_telp', 'alamat',
         'provinsi', 'kota', 'kecamatan', 'image'
     ]
     success_message = "Data Anggota Keluarga telah dibuat"
@@ -111,9 +111,20 @@ class KeluarListView(LoginRequiredMixin, ListView):
 
 @login_required
 def update_keluar(request, santri, keluar):
-    keluar = Keluar.objects.filter(id=keluar).update(end_time=datetime.today(), status='Ended')
+    Keluar.objects.filter(id=keluar).update(end_time=timezone.now())
+    obj = Keluar.objects.get(id=keluar)
+    Keluar.objects.filter(id=keluar).update(
+            no_invoice = f'INV/{obj.end_time.strftime("%Y%m%d")}/{obj.id}/01/{obj.santri.no_induk}',
+            sisa_waktu = obj.durasi_habis - obj.end_time,
+            staff = request.user,
+            status='Ended'
+    )
     messages.success(request, f'Santri {Santri.objects.get(id=santri)} telah kembali')
     return redirect('keluar-list')
+
+def keluar_invoice(request, santri, keluar):
+    obj = Keluar.objects.get(pk=keluar)
+    return render(request, 'santri/keluar_invoice.html', {'obj':obj})
 
 class PulangCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Pulang
@@ -138,9 +149,22 @@ class PulangListView(LoginRequiredMixin, ListView):
 
 @login_required
 def update_pulang(request, santri, pulang):
-    pulang = Pulang.objects.filter(id=pulang).update(end_time=datetime.today(), status='Ended')
+    Pulang.objects.filter(id=pulang).update(end_time=timezone.now())
+    obj = Pulang.objects.get(id=pulang)
+    Pulang.objects.filter(id=pulang).update(
+            no_invoice = f'INV/{obj.end_time.strftime("%Y%m%d")}/{obj.id}/02/{obj.santri.no_induk}',
+            sisa_waktu = obj.durasi_habis - obj.end_time,
+            staff = request.user,
+            status='Ended'
+    )
+    #invoice format INV/TAHUNBULANTANGGAL/NOID/NOPULANG/NOINDUK
     messages.success(request, f'Santri {Santri.objects.get(id=santri)} telah kembali')
     return redirect('pulang-list')
+
+def pulang_invoice(request, santri, pulang):
+    obj = Pulang.objects.get(pk=pulang)
+    return render(request, 'santri/pulang_invoice.html', {'obj':obj})
+
 
 class SambangCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Sambang
@@ -151,7 +175,7 @@ class SambangCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_context_data(self, *args, **kwargs):
         form = super(SambangCreateView, self).get_context_data(*args, **kwargs)
         form['santri'] = Santri.objects.get(id=self.kwargs['pk'])
-        form['form'].fields['penjenguk'].queryset = AnggotaKeluarga.objects.filter(santri=form['santri'])
+        form['form'].fields['penjenguk'].queryset = Anggotapulangga.objects.filter(santri=form['santri'])
         return form
     
     def form_valid(self, form):
@@ -165,7 +189,15 @@ class SambangListView(LoginRequiredMixin, ListView):
 
 @login_required
 def update_sambang(request, santri, sambang):
-    sambang = Sambang.objects.filter(id=sambang).update(end_time=datetime.today(), status='Ended')
+    Sambang.objects.filter(id=sambang).update(end_time=timezone.now())
+    obj = Sambang.objects.get(id=sambang)
+    Sambang.objects.filter(id=sambang).update(
+            no_invoice = f'INV/{obj.end_time.strftime("%Y%m%d")}/{obj.id}/03/{obj.santri.no_induk}',
+            sisa_waktu = obj.durasi_habis - obj.end_time,
+            staff = request.user,
+            status='Ended'
+    )
+    #invoice format INV/TAHUNBULANTANGGAL/NOID/NOKELUAR/NOINDUK
     messages.success(request, f'Santri {Santri.objects.get(id=santri)} sudah selesai disambang')
     return redirect('sambang-list')
 

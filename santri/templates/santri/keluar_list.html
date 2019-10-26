@@ -29,7 +29,7 @@
                                 style="width: 50px;
                                 height: auto;">
                               {% if santri.end_time %}
-                                <a href="{% url 'invoice' %}">{{ santri.santri.nama }}</a>
+                                <a href="{% url 'keluar-invoice' santri.santri.pk santri.pk %}">{{ santri.santri.nama }}</a>
                               {% else %}
                                 {{ santri.santri.nama }}
                               {% endif %}
