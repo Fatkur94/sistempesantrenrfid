@@ -10,7 +10,7 @@ from users import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', user_views.MyLoginView.as_view(template_name= 'users/login2.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name= 'users/login2.html'), name='logout'),
     path('register/', user_views.register, name='register'),
     path('liststaff/', user_views.list_staff, name='list_staff'),
     path('staff/<int:pk>/delete', user_views.delete_staff, name='staff-delete'),
