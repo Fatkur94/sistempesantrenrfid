@@ -59,6 +59,7 @@
                             <tr>
                                 <th>No</th>
                                 <th class="text-left">KEPERLUAN & KETERANGAN</th>
+                                <th class="text-right">PENJEMPUT</th>
                                 <th class="text-right">WAKTU PULANG</th>
                                 <th class="text-right">SELESAI PULANG</th>
                             </tr>
@@ -71,6 +72,12 @@
                                     {{ obj.keterangan }}
                                               
                                 </td>
+                                <td class="unit">
+                                    {{ obj.anggotakeluarga.nama }}
+                                    <span class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            ({{ obj.anggotakeluarga.status }})
+                                    </span>
+                                </td>
                                 <td class="qty">{{ obj.start_time|date:"d/m/Y, H:i" }}</td>
                                 <td class="total">{{ obj.end_time|date:"d/m/Y, H:i" }}</td>
                             </tr>
@@ -78,17 +85,17 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="2"></td>
+                                <td colspan="3"></td>
                                 <td colspan="1">MASA DURASI</td>
                                 <td>{{ obj.get_masa_durasi_display }}</td>
                             </tr>
                             <tr>
-                                <td colspan="2"></td>
+                                <td colspan="3"></td>
                                 <td colspan="1">DEADLINE</td>
                                 <td>{{ obj.durasi_habis|date:"d/m/Y, H:i" }}</td>
                             </tr>
                             <tr>
-                                <td colspan="2"></td>
+                                <td colspan="3"></td>
                                 <td colspan="1" style="font-size: 1.5em;">SISA WAKTU</td>
                                 <td>{{ obj.sisa_waktu }}</td>
                             </tr>

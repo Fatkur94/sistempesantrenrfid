@@ -15,7 +15,7 @@ from .models.anggota_keluarga import AnggotaKeluarga
 from .models.keluar import Keluar
 from .models.pulang import Pulang
 from .models.sambang import Sambang
-from .forms import AnggotaKeluargaForm, KeluarForm
+from .forms import SantriForm, AnggotaKeluargaForm, KeluarForm
 from django.utils import timezone
 from django.urls import reverse_lazy
 
@@ -31,20 +31,13 @@ class SantriDetailView(LoginRequiredMixin, DetailView):
 
 class SantriCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Santri
-    fields = [
-        'image', 'nama', 'gender', 'id_tag', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
-        'tanggal_lahir', 'agama', 'anak_ke', 'dari', 'no_telp', 'pendidikan_terakhir', 
-        'provinsi', 'kota', 'kecamatan', 'alamat', 
-    ]
+    form_class = SantriForm
     success_message = 'Data santri berhasil dibuat'
 
-class SantriUpdateView(LoginRequiredMixin ,UpdateView):
+class SantriUpdateView(LoginRequiredMixin ,SuccessMessageMixin, UpdateView):
     model = Santri
-    fields = [
-        'image', 'nama', 'gender', 'id_tag', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
-        'tanggal_lahir', 'agama', 'anak_ke', 'dari', 'no_telp', 'pendidikan_terakhir', 
-        'provinsi', 'kota', 'kecamatan', 'alamat', 
-    ]
+    form_class = SantriForm
+    success_message = 'Data santri berhasil diupdate'
 
 class SantriDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Santri
@@ -71,7 +64,7 @@ def update_anggotakeluarga(request, santri, anggotakeluarga):
     anggotakeluarga = get_object_or_404(AnggotaKeluarga, id=anggotakeluarga)
     form = AnggotaKeluargaForm(instance=anggotakeluarga)
     if request.method == 'POST':
-        form = AnggotaKeluargaForm(request.POST, instance=anggotakeluarga)
+        form = AnggotaKeluargaForm(request.POST, request.FILES, instance=anggotakeluarga)
         print(form)
         if form.is_valid():
             form.save()
@@ -175,7 +168,7 @@ class SambangCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_context_data(self, *args, **kwargs):
         form = super(SambangCreateView, self).get_context_data(*args, **kwargs)
         form['santri'] = Santri.objects.get(id=self.kwargs['pk'])
-        form['form'].fields['penjenguk'].queryset = Anggotakeluarga.objects.filter(santri=form['santri'])
+        form['form'].fields['penjenguk'].queryset = AnggotaKeluarga.objects.filter(santri=form['santri'])
         return form
     
     def form_valid(self, form):

@@ -1,7 +1,18 @@
 from django import forms
+from .models.santri import Santri
 from .models.anggota_keluarga import AnggotaKeluarga
 from .models.keluar import Keluar
 from .models.pulang import Pulang
+
+
+class SantriForm(forms.ModelForm):
+    class Meta:
+        model = Santri
+        fields = [
+            'image', 'nama', 'gender', 'id_tag', 'no_induk', 'no_nik', 'no_kk', 'tempat_lahir', 
+            'tanggal_lahir', 'agama', 'anak_ke', 'dari', 'no_telp', 'pendidikan_terakhir', 
+            'provinsi', 'kota', 'kecamatan', 'alamat', 
+        ]
 
 class AnggotaKeluargaForm(forms.ModelForm):
     
