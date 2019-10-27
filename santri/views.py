@@ -175,7 +175,7 @@ class SambangCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_context_data(self, *args, **kwargs):
         form = super(SambangCreateView, self).get_context_data(*args, **kwargs)
         form['santri'] = Santri.objects.get(id=self.kwargs['pk'])
-        form['form'].fields['penjenguk'].queryset = Anggotapulangga.objects.filter(santri=form['santri'])
+        form['form'].fields['penjenguk'].queryset = Anggotakeluarga.objects.filter(santri=form['santri'])
         return form
     
     def form_valid(self, form):
