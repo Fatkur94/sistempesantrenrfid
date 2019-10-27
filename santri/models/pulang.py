@@ -6,7 +6,7 @@ from .anggota_keluarga import AnggotaKeluarga
 
 class Pulang(models.Model):
     staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    no_invoice = models.CharField(max_length=30, null=True, blank=True)
+    no_invoice = models.CharField(max_length=300, null=True, blank=True)
     santri = models.ForeignKey(Santri, on_delete=models.CASCADE, null=True, blank=True)
     anggotakeluarga = models.ForeignKey(AnggotaKeluarga, on_delete=models.CASCADE, null=True, blank=True)
     pilihan_pulang = (

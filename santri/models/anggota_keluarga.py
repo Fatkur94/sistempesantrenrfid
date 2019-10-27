@@ -13,7 +13,8 @@ class AnggotaKeluarga(models.Model):
     )
     gender = models.CharField(max_length=20, choices=pilihan_gender)
     pilihan_status = (
-        ('Ayah', 'Ayah'), ('Ibu', 'Ibu'), ('Kakak', 'Kakak'), ('Adik', 'Adik')
+        ('Ayah', 'Ayah'), ('Ibu', 'Ibu'), ('Kakak', 'Kakak'), ('Adik', 'Adik'),
+        ('Ayah Tiri', 'Ayah Tiri'), ('Ibu Tiri', 'Ibu Tiri'), ('Kakak Tiri', 'Kakak Tiri'), ('Adik Tiri', 'Adik Tiri')
     )
     status = models.CharField(max_length=10, choices=pilihan_status)
     id_tag = models.CharField(max_length=30, null=True, blank=True)

@@ -34,7 +34,11 @@ class Santri(models.Model):
         ('TK', 'Taman Kanak-kanak'),
         ('SD', 'Sekolah Dasar'),
         ('SMP/MTs', 'Sekolah Menengah Pertama'),
-        ('SMA/MA', 'Sekolah Menengah Atas')
+        ('SMA/MA', 'Sekolah Menengah Atas'),
+        ('D1/D2/D3', 'Diploma'),
+        ('S1', 'SARJANA'),
+        ('S2', 'MAGISTER'),
+        ('S3', 'DOKTOR')
     )
     pendidikan_terakhir = models.CharField(max_length=10, choices=pilihan_pendidikan)
     alamat = models.TextField(max_length=300)
@@ -42,7 +46,8 @@ class Santri(models.Model):
     kota = models.CharField(max_length=50)
     kecamatan = models.CharField(max_length=50)
     image = models.ImageField(default='default.jpg', upload_to='santri_pics')
-    tanggal_masuk = models.DateField(auto_now_add=True)
+    tanggal_masuk = models.DateField(null=True, blank=True)
+    dibuat_tanggal = models.DateField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.nama
