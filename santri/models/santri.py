@@ -10,7 +10,7 @@ class Santri(models.Model):
         ('P', 'Perempuan')
     )
     gender = models.CharField(max_length=20, choices=pilihan_gender)
-    id_tag = models.CharField(max_length=30, null=True, blank=True)
+    id_tag = models.CharField(max_length=30, null=True, blank=True, unique=True)
     tanggal_lahir = models.DateField()
     tempat_lahir = models.CharField(max_length=50)
     anak_ke = models.IntegerField()

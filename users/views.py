@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,6 +8,7 @@ from .forms import UserStaffForm, UserSuperUserForm, UserUpdateForm, ProfileUpda
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
+from santri.models.santri import Santri
 
 
 class MyAuthForm(AuthenticationForm):
@@ -30,6 +31,9 @@ def register(request):
 
 @login_required
 def search(request):
+    if (request.GET.get('q')):
+        santri = get_object_or_404(Santri, id_tag=request.GET.get('q'))
+        return render(request, 'santri/santri_detail.html', {'santri': santri})
     return render(request, 'dashboard/search.html', {'user': request.user})
 
 @login_required
