@@ -20,6 +20,7 @@ urlpatterns = [
 
     # santri
     path('', user_views.index, name='home'),
+    path('search/', user_views.search, name='search'),
     path('santrilist/', santri_views.SantriListView.as_view(), name='santri-list'),
     path('santricreate/', santri_views.SantriCreateView.as_view(), name='santri-create'),
     path('santri/<int:pk>/update/', santri_views.SantriUpdateView.as_view(), name='santri-update'),

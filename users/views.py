@@ -28,6 +28,9 @@ def index(request):
 def register(request):
     pass
 
+@login_required
+def search(request):
+    return render(request, 'dashboard/search.html', {'user': request.user})
 
 @login_required
 def create_staff(request):
